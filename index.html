@@ -7,7 +7,86 @@
 </head>
 <body>
     <script>
-        console.log("Hello World!");
+        // Base code
+        let choice = ["rock", "paper", "scissor"];
+
+        // Machine choice
+        function getComputerChoice() {
+            let computerChoice = (choice[(Math.floor(Math.random() * choice.length))])
+            console.log (computerChoice);
+            return computerChoice;
+        }
+
+        // Human choice
+        function getHumanChoice() {
+            let humanChoice = prompt ("What is your choice? (Rock, Paper, Scissor)");
+            console.log(humanChoice);
+            return humanChoice.toLowerCase();
+        }
+
+        // Play one round
+        function playRound (humanChoice, computerChoice) {
+            // Tie game
+            if (humanChoice == computerChoice) {
+                console.log ("It's a tie! You both chose " + humanChoice);
+                return;
+            }
+            
+            if (
+                (humanChoice === "rock" && computerChoice === "scissor") ||
+                (humanChoice === "paper" && computerChoice === "rock") ||
+                (humanChoice === "scissor" && computerChoice === "paper") 
+            ) {
+                console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
+                humanScore++;
+            } else {
+                console.log("You win! " + computerChoice + " beats " + humanChoice + "!");
+                computerScore++;
+            }
+        }
+
+        // 5-round game
+        let humanScore = 0;
+        let computerScore = 0;
+        const totalRounds = 5;
+
+        // Play game function
+        function playGame () {
+            for (let round = 1; round <= totalRounds; round++) {
+                console.log ("Round " + round);
+                
+                const humanSelection = getHumanChoice();
+                const computerSelection = getComputerChoice();
+                const roundResult = playRound (humanSelection, computerSelection);
+
+                if (roundResult === 1) {
+                    humanScore ++;
+                } else if (roundResult === -1) {
+                    computerScore ++;
+                }
+
+                console.log ("Score after Round " + round + " - Human: " + humanScore + " Computer: " + computerScore);
+
+            }
+        }
+
+        // Determine the overall winner after 5 rounds
+        function determineWinner() {
+            if (humanScore > computerScore) {
+                console.log(`You win the game! Final Score - Human: ${humanScore}, Computer: ${computerScore}`);
+            } else if (computerScore > humanScore) {
+                console.log(`Computer wins the game! Final Score - Human: ${humanScore}, Computer: ${computerScore}`);
+            } else {
+                console.log(`The game is a tie! Final Score - Human: ${humanScore}, Computer: ${computerScore}`);
+            }
+        }
+
+        // Action
+        playGame();
+        determineWinner();
+
+        
+        
     </script>
     
 </body>
